@@ -7,7 +7,7 @@ import os, logging
 
 # -------------- Versioning data
 
-version = "0.0"
+version = "0.9"
 __version__ = version 
         
 # set-up logging

@@ -31,9 +31,9 @@ def do(null=None):
     
     n = 0
     m = 0
+    tot_tags = 0
 
     for fq1, fq2 in lib.fastqPE(args.p1, args.p2):
-        n += 1
         index = fq1["name"].split(":")[-1]
         # match the index against the table
         for k in table:
@@ -42,7 +42,8 @@ def do(null=None):
                 files[k].write("%s\n%s\n%s\n%s\n" % (fq1["name"], fq1["seq"], fq1["strand"], fq1["qual"]))
                 files[k].write("%s\n%s\n%s\n%s\n" % (fq2["name"], fq2["seq"], fq2["strand"], fq2["qual"]))
                 break
-                
+        
+        tot_tags += 1
         n += 1
         if n > 1e6:
             m += 1
@@ -51,7 +52,8 @@ def do(null=None):
     
     for k in counts:
         config.log.info("Found %s tags for sample %s" % (counts[k], k))
-    
+    sum_counts = sum(counts.values())
+    config.log.info("Able to rescue %s tags from %s total (%%%.2f)" % (sum_counts, tot_tags, (sum_counts/float(tot_tags))*100.0))
     return
 
 if __name__ == "__main__":    

@@ -140,10 +140,10 @@ def fastqPE(filename1, filename2):
         strand1 = oh1.readline().strip()
         qual1 = oh1.readline().strip()
         
-        name2 = oh1.readline().strip()
-        seq2 = oh1.readline().strip()
-        strand2 = oh1.readline().strip()
-        qual2 = oh1.readline().strip()
+        name2 = oh2.readline().strip()
+        seq2 = oh2.readline().strip()
+        strand2 = oh2.readline().strip()
+        qual2 = oh2.readline().strip()
         
         res = ({"name": name1, "strand": strand1, "seq": seq1, "qual": qual1},
             {"name": name2, "strand": strand2, "seq": seq2, "qual": qual2})
