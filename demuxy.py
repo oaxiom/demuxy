@@ -1,13 +1,6 @@
 #!/usr/bin/env python
-"""
 
-Demuxy
-
-"""
-
-
-from operator import itemgetter
-import sys, os, argparse, logging, random, time, subprocess, copy, numpy, itertools
+import sys, os, argparse, logging, time, subprocess, copy, itertools
 
 # demuxy modules
 import config
