@@ -27,7 +27,8 @@ def do(null=None):
     table = lib.populate_table(sample_sheet, args.mismatch) # 5 is the point for the first mismatch
     
     # open the output files:
-    files = {k: open("%s.fq" % k, "w") for k in sample_sheet.keys()}
+    files = {"R1": {k: open("%s_R1.fq" % k, "w") for k in sample_sheet.keys()},
+        "R2": {k: open("%s_R2.fq" % k, "w") for k in sample_sheet.keys()}}
     counts = {i: 0 for i in sample_sheet.keys()}
     
     n = 0
@@ -40,8 +41,8 @@ def do(null=None):
         for k in table:
             if index in table[k]:
                 counts[k] += 2
-                files[k].write("%s\n%s\n%s\n%s\n" % (fq1["name"], fq1["seq"], fq1["strand"], fq1["qual"]))
-                files[k].write("%s\n%s\n%s\n%s\n" % (fq2["name"], fq2["seq"], fq2["strand"], fq2["qual"]))
+                files["R1"][k].write("%s\n%s\n%s\n%s\n" % (fq1["name"], fq1["seq"], fq1["strand"], fq1["qual"]))
+                files["R2"][k].write("%s\n%s\n%s\n%s\n" % (fq2["name"], fq2["seq"], fq2["strand"], fq2["qual"]))
                 break
         
         tot_tags += 1
