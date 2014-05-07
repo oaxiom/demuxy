@@ -14,10 +14,18 @@ import config
 import lib
 import progress
 
-parser = argparse.ArgumentParser(description="""demuxy is a tool to demultiplex Version: %s""" % config.version)
+splurge = """
+    demuxy is a tool to demultiplex Illumina sequencing data\n
+    It takes a much more aggressive approach to demultiplexing the data 
+    by taking the maximum distances between each index up to some
+    specified limit.
+    \n\n
+    Version: %s""" % config.version
+
+parser = argparse.ArgumentParser(description=splurge)
 parser.add_argument("-1", "--p1", help="paired-end 1 fastq file (Required)", required=True)
 parser.add_argument("-2", "--p2", help="paired-end 2 fastq file (Required)", required=True)
-parser.add_argument("-s", "--sheet", help="(Required)", required=True)
+parser.add_argument("-s", "--sheet", help="The Illumina-style SampleSheet (Required)", required=True)
 parser.add_argument("-m", "--mismatch", help="Maximum number of mismatches in indeces (Required)", required=True, type=int)
 parser.add_argument("-z", "--opt", help="Profile the code for optimisation")
 
@@ -58,9 +66,9 @@ def do(null=None):
 
 if __name__ == "__main__":    
     s = time.time() # so tmp files all get the same time
+    args = parser.parse_args()
     config.log.info("demuxy, version: %s" % config.version)
     config.log.info("Starting on %s" % time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime()))   
-    args = parser.parse_args()
 
     if args.opt:
         import cProfile, pstats
