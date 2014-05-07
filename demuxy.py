@@ -39,7 +39,7 @@ def do(null=None):
         # match the index against the table
         for k in table:
             if index in table[k]:
-                counts[k] += 1
+                counts[k] += 2
                 files[k].write("%s\n%s\n%s\n%s\n" % (fq1["name"], fq1["seq"], fq1["strand"], fq1["qual"]))
                 files[k].write("%s\n%s\n%s\n%s\n" % (fq2["name"], fq2["seq"], fq2["strand"], fq2["qual"]))
                 break
@@ -62,6 +62,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
     config.log.info("demuxy, version: %s" % config.version)
     config.log.info("Starting on %s" % time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime()))   
+    
+    if args.mismatch > 6: # current reasonable limit
+        config.log.warning("Using more than 6 mismatches is not advised...")
 
     if args.opt:
         import cProfile, pstats
