@@ -27,9 +27,11 @@ def do(null=None):
     table = lib.populate_table(sample_sheet, args.mismatch) # 5 is the point for the first mismatch
     
     # open the output files:
-    files = {"R1": {k: open("%s_R1.fq" % k, "w") for k in sample_sheet.keys()},
-        "R2": {k: open("%s_R2.fq" % k, "w") for k in sample_sheet.keys()}}
-    counts = {i: 0 for i in sample_sheet.keys()}
+    # dict((chr(2**i), func) for i, func in enumerate(gwfuncs[:8]))
+    R1 = dict((k, open("%s_R1.fq" % k, "w")) for k in sample_sheet.keys())
+    R2 = dict((k, open("%s_R2.fq" % k, "w")) for k in sample_sheet.keys())
+    files = {"R1": R1, "R2": R2}
+    counts = dict((i, 0) for i in sample_sheet.keys())
     
     n = 0
     m = 0
